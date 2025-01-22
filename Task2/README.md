@@ -17,10 +17,6 @@ To maintain clean and focused code, the plugin leverages the following helper me
 3. **`HasOpenCases`**  
    - Encapsulates the logic for querying Dynamics 365 to determine whether the customer has any active cases.
 
-### Potential Improvement
-
-While helper methods improve code organisation, there is room to refactor them into **helper classes**. For instance, a dedicated `CaseValidationService` could encapsulate the entire validation process, improving testability and further adhering to the Single Responsibility Principle.
-
 ---
 
 ## Error Handling and Trace Logging
