@@ -19,19 +19,19 @@ The solution is split into two scripts:
 
 ## Key Components
 
-### 1. **DynamicsService**  
+### 1. **`DynamicsService`**  
 A generic service for interacting with the Dynamics Web API.  
 
-### 2. **AccountService**  
+### 2. **`AccountService`**  
 Handles account-related logic, such as retrieving a primary contact ID.  
 
-### 3. **ContactService**  
+### 3. **`ContactService`**  
 Manages contact-related logic, including fetching contact details.  
 
-### 4. **CustomerTypeService**  
+### 4. **`CustomerTypeService`**  
 Determines the type of customer (e.g., account or contact).  
 
-### 5. **PrimaryContactHandler**  
+### 5. **`PrimaryContactHandler`**  
 Coordinates the various services to manage the **Primary Contact** functionality on the main Case form.  
 
 
@@ -46,6 +46,6 @@ If the customer is a **Contact** related to an Account, the solution could be ex
 - Set the related account as the new customer.  
 - Set the primary contact as the contact.  
 
-This functionality could be implemented through extensions of the **AccountService** and **ContactService** classes.  
+This functionality could be implemented through extensions of the **`AccountService`** and **`ContactService`** classes.  
 
 ---
