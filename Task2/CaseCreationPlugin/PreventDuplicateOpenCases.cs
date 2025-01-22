@@ -14,15 +14,14 @@ namespace CaseCreationPlugin
             {
                 var context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
                 var serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
+                var service = serviceFactory.CreateOrganizationService(context.UserId);
 
                 // Retrieve the target entity and customer ID
                 var targetEntity = GetTargetEntity(context, tracingService);
                 if (targetEntity == null) return;  // If target is invalid, exit
 
-                var customerId = GetCustomerId(targetEntity, tracingService);
-                if (customerId == Guid.Empty) return;  // If customer ID is invalid, exit
-
-                var service = serviceFactory.CreateOrganizationService(context.UserId);
+                var customer = GetCustomer(targetEntity, tracingService);
+                if (customer == null || customer.LogicalName != "account") return;  // If customer ID is invalid or the customer isn't an account, exit
 
                 // Check if the customer has any open cases
                 if (HasOpenCases(service, customerId))
@@ -63,7 +62,7 @@ namespace CaseCreationPlugin
         /// <summary>
         /// Retrieves the customer ID from the target entity.
         /// </summary>
-        private Guid GetCustomerId(Entity targetEntity, ITracingService tracingService)
+        private Guid GetCustomer(Entity targetEntity, ITracingService tracingService)
         {
             if (!targetEntity.Contains("customerid") || !(targetEntity["customerid"] is EntityReference customerReference))
             {
@@ -71,7 +70,7 @@ namespace CaseCreationPlugin
                 throw new InvalidPluginExecutionException("Customer information is required to create a case.");
             }
 
-            return customerReference.Id;  // Return the customer ID
+            return customerReference;  // Return the customer Ref
         }
 
         /// <summary>
