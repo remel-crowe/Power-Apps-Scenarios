@@ -17,8 +17,6 @@ To maintain clean and focused code, the plugin leverages the following helper me
 3. **`HasOpenCases`**  
    - Encapsulates the logic for querying Dynamics 365 to determine whether the customer has any active cases.
 
----
-
 ## Error Handling and Trace Logging
 
 The plugin enforces its validation logic by throwing an `InvalidPluginExecutionException` when an active case is detected for the customer. This exception stops the execution pipeline and displays a user-friendly error message, including the customer's ID for context.
