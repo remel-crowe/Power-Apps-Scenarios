@@ -62,7 +62,7 @@ namespace CaseCreationPlugin
         /// <summary>
         /// Retrieves the customer ID from the target entity.
         /// </summary>
-        private Guid GetCustomer(Entity targetEntity, ITracingService tracingService)
+        private EntityReference GetCustomer(Entity targetEntity, ITracingService tracingService)
         {
             if (!targetEntity.Contains("customerid") || !(targetEntity["customerid"] is EntityReference customerReference))
             {
