@@ -8,29 +8,29 @@ namespace CaseCreationPlugin
     {
         public void Execute(IServiceProvider serviceProvider)
         {
-            var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
-
             try
             {
                 var context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
                 var serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
                 var service = serviceFactory.CreateOrganizationService(context.UserId);
+                var tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
 
-                // Retrieve the target entity and customer ID
+                // Retrieve the target entity
                 var targetEntity = GetTargetEntity(context, tracingService);
                 if (targetEntity == null) return;  // If target is invalid, exit
 
+                // Retrieve the customer ID from the target entity
                 var customer = GetCustomer(targetEntity, tracingService);
                 if (customer == null || customer.LogicalName != "account") return;  // If customer ID is invalid or the customer isn't an account, exit
 
                 // Check if the customer has any open cases
-                if (HasOpenCases(service, customerId))
+                if (HasOpenCases(service, customer.Id))
                 {
                     throw new InvalidPluginExecutionException(
-                        $"The account {customerId}, already has an open case. Only one active case is allowed at a time. Please resolve/close any open cases.");
+                        $"The account {customer.Id}, already has an open case. Only one active case is allowed at a time. Please resolve/close any open cases.");
                 }
 
-                tracingService.Trace($"Success: Case creation allowed. No open cases found for customer with ID: {customerId}.");
+                tracingService.Trace($"Success: Case creation allowed. No open cases found for customer with ID: {customer.Id}.");
             }
             catch (InvalidPluginExecutionException ex)
             {
