@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="PreventDuplicateOpenCases.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+	<Compile Include="Helpers\PluginHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CasePlugin.snk" />
