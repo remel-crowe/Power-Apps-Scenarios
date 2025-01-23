@@ -17,7 +17,7 @@ namespace CaseCreationPlugin
 
                 // Retrieve the target entity
                 var targetEntity = GetTargetEntity(context, tracingService);
-                if (targetEntity == null) return;  // If target is invalid, exit
+                if (targetEntity == null) return;
 
                 // Retrieve the customer ID from the target entity
                 var customer = GetCustomer(targetEntity, tracingService);
@@ -29,7 +29,6 @@ namespace CaseCreationPlugin
                     throw new InvalidPluginExecutionException(
                         $"The account {customer.Id} already has an open case. Only one active case is allowed at a time. Please resolve/close any open cases.");
                 }
-
                 tracingService.Trace($"Success: Case creation allowed. No open cases found for customer with ID: {customer.Id}.");
             }
             catch (InvalidPluginExecutionException ex)
@@ -56,7 +55,7 @@ namespace CaseCreationPlugin
             if (!context.InputParameters.Contains("Target") || !(context.InputParameters["Target"] is Entity entity))
             {
                 tracingService.Trace("Target entity is missing or invalid.");
-                return null;  // Return null if invalid
+                return null;
             }
 
             return entity;  // Return valid target entity
@@ -77,7 +76,7 @@ namespace CaseCreationPlugin
                 throw new InvalidPluginExecutionException("Customer information is required to create a case.");
             }
 
-            return customerReference;  // Return the customer Ref
+            return customerReference;
         }
 
         /// <summary>
