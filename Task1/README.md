@@ -30,7 +30,7 @@ Handles account-related logic, such as retrieving the **Primary Contact** ID for
 Manages contact-related logic, including fetching contact details.
 
 ### 4. **Utility Functions**  
-Standalone utility functions replace some single-method classes to simplify the solution. For example, determining customer type is now handled by a utility function.
+Standalone utility functions replace some single-method classes to simplify the solution. For example, determining customer type is handled by a utility function.
 
 ### 5. **`FormUtility`**  
 A dedicated utility class for interacting with the Case form, decoupling form-specific logic from business logic. Tasks include:  
