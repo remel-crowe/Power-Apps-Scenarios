@@ -42,7 +42,7 @@ The plugin is functional as designed, but several enhancements could add value:
 
 ## File Structure
 
-- **PreventDuplicateOpenCases Plugin**: Core plugin logic, which utilises the methods in `PluginHelper` for validation and processing.
+- **PreventDuplicateOpenCases**: Core plugin logic, which utilises the methods in `PluginHelper` for validation and processing.
 - **PluginHelper**: Contains the static helper methods `GetTargetEntity`, `GetCustomerId`, and `HasOpenCases`.
 
 This structure ensures separation of concerns, improves readability, and supports future scalability.
