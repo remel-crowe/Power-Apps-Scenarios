@@ -12,13 +12,13 @@ function toggleFieldVisibility(quickViewControl, fieldName, isVisible) {
   }
 }
 
-this.changeQuickView = function (executionContext) {
+this.updateQuickViewVisibility = function (executionContext) {
   const formContext = executionContext.getFormContext();
   const quickViewControl = formContext.ui.quickForms.get(
     "primaryContactQuickView"
   );
 
-  // Check which fields have values
+  // Store the visibility of each field depending on whether it has a value
   const fieldVisibility = {
     emailaddress1: hasValue(quickViewControl, "emailaddress1"),
     mobilephone: hasValue(quickViewControl, "mobilephone"),
@@ -38,7 +38,7 @@ this.changeQuickView = function (executionContext) {
     fieldVisibility.mobilephone
   );
 
-  // If mobilephone is not visible, show telephone1 (but only if it has a value)
+  // Only when mobilephone is not visible, show telephone1 (but only if it has a value)
   toggleFieldVisibility(
     quickViewControl,
     "telephone1",

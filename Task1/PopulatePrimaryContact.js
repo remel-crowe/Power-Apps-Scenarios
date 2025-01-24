@@ -153,7 +153,11 @@ class PrimaryContactHandler {
   async populatePrimaryContactDetails(executionContext) {
     try {
       const formContext = executionContext.getFormContext();
+      if (!formContext) throw new Error("Form context not found.");
+
       const customerId = this.formUtility.getCustomerId(formContext);
+      if (!customerId) throw new Error("Customer ID not invalid/not found.");
+
       const customerType = getCustomerType(customerId);
 
       if (customerType === "account") {
@@ -162,6 +166,7 @@ class PrimaryContactHandler {
         this.formUtility.hidePrimaryContactField(formContext);
       }
     } catch (error) {
+      console.error("An error occurred:", error);
       Xrm.Utility.alertDialog(`An error occurred: ${error.message}`);
     }
   }
@@ -177,11 +182,18 @@ class PrimaryContactHandler {
       "primarycontactid",
       "required"
     );
+
     const primaryContactId = await this.accountService.getPrimaryContactId(
       customerId
     );
 
-    if (!primaryContactId) return;
+    if (!primaryContactId) {
+      Xrm.Utility.alertDialog(
+        "No primary contact associated with this account."
+      );
+      console.warn(`No primary contact found for account ID: ${customerId}`);
+      return;
+    }
 
     const primaryContactDetails = await this.contactService.getContactDetails(
       primaryContactId
