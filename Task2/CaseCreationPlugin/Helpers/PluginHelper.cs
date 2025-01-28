@@ -47,14 +47,14 @@ namespace CaseCreationPlugin.Helpers
         /// <summary>
         /// Checks if the specified customer has any open cases.
         /// </summary>
-        /// <param name="service">The organization service for querying data.</param>
+        /// <param name="service">The organistion service for querying data.</param>
         /// <param name="customerId">The ID of the customer to check for open cases.</param>
         /// <returns>True if there are open cases; otherwise, false.</returns>
         public static bool HasOpenCases(IOrganizationService service, Guid customerId)
         {
             if (service == null)
             {
-                throw new ArgumentNullException(nameof(service), "The organization service cannot be null.");
+                throw new ArgumentNullException(nameof(service), "The organisation service cannot be null.");
             }
 
             var query = new QueryExpression("incident")
